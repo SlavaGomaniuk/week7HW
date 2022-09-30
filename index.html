@@ -17,6 +17,36 @@
   <body>
     <div class="weatherApp">
       <div class="container">
+        <form class="form-inline mb-2">
+          <div class="row">
+            <div class="col-7">
+              <div class="form-group mb-2">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputCity"
+                  autocomplete="off"
+                  ;
+                  autofocus="on"
+                  ;
+                  placeholder="Search the city"
+                  ;
+                  w-100
+                />
+              </div>
+            </div>
+            <div class="col-2" id="search">
+              <button type="submit" class="btn btn-primary mx-sm-2 mb-2">
+                Search
+              </button>
+            </div>
+            <div class="col-3" id="current">
+              <button type="submit" class="btn btn-success mx-sm-2 mb-2">
+                Current
+              </button>
+            </div>
+          </div>
+        </form>
         <div class="headCity">
           <h1 id="cityStart"></h1>
           <ul id="startDesc">
