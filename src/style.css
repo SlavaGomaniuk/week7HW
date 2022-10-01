@@ -51,3 +51,13 @@ small {
   position: relative;
   top: -13px;
 }
+.units a {
+  text-decoration: none;
+}
+.weather-temperature .active {
+  color: #212529;
+  cursor: default;
+}
+.weather-temperature .active:hover {
+  text-decoration: none;
+}

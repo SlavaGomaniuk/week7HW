@@ -29,7 +29,8 @@ function showTemp(response) {
   let icon = document.querySelector("#icon");
   console.log(startCondition1);
   let dateStart = document.querySelector("#date");
-  tempElement.innerHTML = Math.round(response.data.main.temp);
+  tempC = response.data.main.temp;
+  tempElement.innerHTML = Math.round(tempC);
   startCondition1.innerHTML = `${conditionNow1}`;
   startCondition2.innerHTML = `${conditionNow2}`;
   speed.innerHTML = `${windStart} `;
@@ -73,9 +74,10 @@ function startCity(response) {
   let hum = document.querySelector("#humidity");
   let icon = document.querySelector("#icon");
   let dateStart = document.querySelector("#date");
+  tempC = response.data.main.temp;
   //let conditionNow2 = conditionNow.toLowerCase();
   cityStart.innerHTML = `${city}`;
-  tempElement.innerHTML = Math.round(response.data.main.temp);
+  tempElement.innerHTML = Math.round(tempC);
   startCondition1.innerHTML = `${conditionNow1}`;
   startCondition2.innerHTML = `${conditionNow2}`;
   speed.innerHTML = `${windStart} `;
@@ -112,9 +114,11 @@ function currentPosition(position) {
     let hum = document.querySelector("#humidity");
     let icon = document.querySelector("#icon");
     let dateStart = document.querySelector("#date");
-    //let conditionNow2 = conditionNow.toLowerCase();
+
+    tempC = response.data.main.temp;
+
     cityStart.innerHTML = `${response.data.name} <i class="fa-solid fa-location-dot"></i>`;
-    tempElement.innerHTML = Math.round(response.data.main.temp);
+    tempElement.innerHTML = Math.round(tempC);
     startCondition1.innerHTML = `${conditionNow1}`;
     startCondition2.innerHTML = `${conditionNow2}`;
     speed.innerHTML = `${windStart} `;
@@ -136,6 +140,29 @@ function start(event) {
   console.log("start");
   geoLoc();
 }
+
 let buttonCurrent = document.querySelector("#current");
 console.log(buttonCurrent);
 buttonCurrent.addEventListener("click", start);
+
+function showFahrenTemp(event) {
+  event.preventDefault();
+  let temp = document.querySelector("#startTemp");
+  celLink.classList.remove("active");
+  fahrenlink.classList.add("active");
+  let tempF = (tempC * 9) / 5 + 32;
+  temp.innerHTML = Math.round(tempF);
+}
+function showCelTemp(event) {
+  event.preventDefault();
+  celLink.classList.add("active");
+  fahrenlink.classList.remove("active");
+  let temp = document.querySelector("#startTemp");
+  temp.innerHTML = Math.round(tempC);
+}
+let tempC = null;
+let fahrenlink = document.querySelector("#fahren-link");
+fahrenlink.addEventListener("click", showFahrenTemp);
+
+let celLink = document.querySelector("#cel-link");
+celLink.addEventListener("click", showCelTemp);
