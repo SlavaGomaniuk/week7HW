@@ -23,6 +23,7 @@ ul {
 }
 .headCity h1 {
   color: #275075;
+  text-transform: capitalize;
 }
 .headCity h1 {
   margin-bottom: 0 !important;

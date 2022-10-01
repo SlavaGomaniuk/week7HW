@@ -15,7 +15,7 @@ let days = [
 
 //date.innerHTML = currentDate;
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-console.log(apiUrl);
+//console.log(apiUrl);
 function showTemp(response) {
   let tempElement = document.querySelector("#startTemp");
   let conditionNow1 = response.data.weather[0].main;
@@ -27,7 +27,7 @@ function showTemp(response) {
   let humStart = response.data.main.humidity;
   let hum = document.querySelector("#humidity");
   let icon = document.querySelector("#icon");
-  console.log(startCondition1);
+  // console.log(startCondition1);
   let dateStart = document.querySelector("#date");
   tempC = response.data.main.temp;
   tempElement.innerHTML = Math.round(tempC);
@@ -62,7 +62,7 @@ function formatDate(timestemp) {
 function startCity(response) {
   let cityStart = document.querySelector("#cityStart");
 
-  console.log(response);
+  //console.log(response);
   let tempElement = document.querySelector("#startTemp");
   let conditionNow1 = response.data.weather[0].main;
   let conditionNow2 = response.data.weather[0].description;
@@ -95,14 +95,14 @@ let buttonSearch = document.querySelector("#search");
 buttonSearch.addEventListener("click", showCity);
 
 function currentPosition(position) {
-  console.log("currentPosition");
+  //console.log("currentPosition");
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let url2 = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
   axios.get(url2).then(function (response) {
     let geoCity = response.data.name;
-    console.log(url2);
-    console.log(response);
+    //console.log(url2);
+    //console.log(response);
     let tempElement = document.querySelector("#startTemp");
     let conditionNow1 = response.data.weather[0].main;
     let conditionNow2 = response.data.weather[0].description;
@@ -132,17 +132,17 @@ function currentPosition(position) {
   });
 }
 function geoLoc() {
-  console.log("geoLoc");
+  //console.log("geoLoc");
   navigator.geolocation.getCurrentPosition(currentPosition);
 }
 function start(event) {
   event.preventDefault();
-  console.log("start");
+  //console.log("start");
   geoLoc();
 }
 
 let buttonCurrent = document.querySelector("#current");
-console.log(buttonCurrent);
+//console.log(buttonCurrent);
 buttonCurrent.addEventListener("click", start);
 
 function showFahrenTemp(event) {
