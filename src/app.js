@@ -10,7 +10,8 @@ let days = [
   "Friday",
   "Saturday",
 ];
-function showForecast() {
+function showForecast(response) {
+  console.log(response.data.daily);
   let forecastElem = document.querySelector("#forecast");
   let forecastHTML = `<div class="row">`;
   let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
@@ -31,14 +32,37 @@ function showForecast() {
         </div>            
       </div>`;
   });
+
   forecastHTML = forecastHTML + `</div>`;
   forecastElem.innerHTML = forecastHTML;
+}
+
+function forecastCoordKyiv(coordinates) {
+  console.log(coordinates);
+  let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showForecast);
+  console.log(apiUrl);
+}
+function forecastCoord(coordinates) {
+  console.log(coordinates);
+  let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showForecast);
+  console.log(apiUrl);
+}
+function forecastCoordCurr(coordinates) {
+  console.log(coordinates);
+  let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showForecast);
+  console.log(apiUrl);
 }
 
 //let currentDate = `${day}, ${now.getHours()}:${minutes}`;
 
 //date.innerHTML = currentDate;
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
 //console.log(apiUrl);
 function showTemp(response) {
   let tempElement = document.querySelector("#startTemp");
@@ -51,7 +75,7 @@ function showTemp(response) {
   let humStart = response.data.main.humidity;
   let hum = document.querySelector("#humidity");
   let icon = document.querySelector("#icon");
-  // console.log(startCondition1);
+  console.log(response);
   let dateStart = document.querySelector("#date");
   tempC = response.data.main.temp;
   tempElement.innerHTML = Math.round(tempC);
@@ -65,6 +89,9 @@ function showTemp(response) {
   );
   icon.setAttribute("alt", `${response.data.weather[0].description}`);
   dateStart.innerHTML = formatDate(response.data.dt * 1000);
+  //console.log(formatDate(response.data.dt * 1000));
+  //console.log(response.data.coord);
+  forecastCoord(response.data.coord);
 }
 function showCity(event) {
   event.preventDefault();
@@ -83,6 +110,10 @@ function formatDate(timestemp) {
   let minutes = `${now.getMinutes()}`.padStart(2, 0);
   return `${day}, ${now.getHours()}:${minutes}`;
 }
+//function search(city) {
+//let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+//axios.get(apiUrl).then(displayTemperature);
+//}
 function startCity(response) {
   let cityStart = document.querySelector("#cityStart");
 
@@ -112,14 +143,20 @@ function startCity(response) {
   );
   icon.setAttribute("alt", `${response.data.weather[0].description}`);
   dateStart.innerHTML = formatDate(response.data.dt * 1000);
-  showForecast();
+  forecastCoordKyiv(response.data.coord);
+  //showForecast();
+}
+function startLink() {
+  let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(startCity);
 }
 
-axios.get(apiUrl).then(startCity);
 let buttonSearch = document.querySelector("#search");
 buttonSearch.addEventListener("click", showCity);
 
 function currentPosition(position) {
+  let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
   //console.log("currentPosition");
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
@@ -154,6 +191,7 @@ function currentPosition(position) {
     );
     icon.setAttribute("alt", `${response.data.weather[0].description}`);
     dateStart.innerHTML = formatDate(response.data.dt * 1000);
+    forecastCoordCurr(response.data.coord);
   });
 }
 function geoLoc() {
@@ -191,3 +229,4 @@ fahrenlink.addEventListener("click", showFahrenTemp);
 
 let celLink = document.querySelector("#cel-link");
 celLink.addEventListener("click", showCelTemp);
+startLink();
