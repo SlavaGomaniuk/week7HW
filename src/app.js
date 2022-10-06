@@ -10,6 +10,30 @@ let days = [
   "Friday",
   "Saturday",
 ];
+function showForecast() {
+  let forecastElem = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row">`;
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `<div class="col-2"> 
+      <div class="forecast-day">${day}</div>
+      <img
+                    src="https://ssl.gstatic.com/onebox/weather/64/cloudy.png"
+                    alt="cloudy"
+                  
+                    width="42"
+                  />
+      <div class="forecast-temp">
+        <span class="forecast-temp-min"> 9°</span>
+        <span class="forecast-temp-max">19°</span>
+        </div>            
+      </div>`;
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElem.innerHTML = forecastHTML;
+}
 
 //let currentDate = `${day}, ${now.getHours()}:${minutes}`;
 
@@ -88,6 +112,7 @@ function startCity(response) {
   );
   icon.setAttribute("alt", `${response.data.weather[0].description}`);
   dateStart.innerHTML = formatDate(response.data.dt * 1000);
+  showForecast();
 }
 
 axios.get(apiUrl).then(startCity);

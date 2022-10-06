@@ -62,3 +62,7 @@ small {
 .weather-temperature .active:hover {
   text-decoration: none;
 }
+#forecast {
+  display: block;
+  text-align: center;
+}
