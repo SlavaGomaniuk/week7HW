@@ -61,8 +61,6 @@ small {
   text-decoration: none;
 }
 #forecast {
-  display: block;
-  text-align: center;
   color: #275075;
 }
 .forecast-temp-min {
@@ -70,4 +68,5 @@ small {
 }
 .forecast-day {
   font-weight: bolder;
+  opacity: 0.8;
 }
