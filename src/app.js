@@ -18,13 +18,18 @@ function formatDay(timestamp) {
   return days[day];
 }
 function showForecast(response) {
-  console.log(response.data.daily);
+  //console.log(response.data.daily);
   let forecast = response.data.daily;
   let forecastElem = document.querySelector("#forecast");
+
   let forecastHTML = `<div class="row">`;
 
   forecast.forEach(function (forecastDay, index) {
     if (index < 6) {
+      tempCMax = forecastDay.temp.max;
+      //console.log(tempCMax);
+      tempCMin = forecastDay.temp.min;
+      //console.log(tempCMin);
       forecastHTML =
         forecastHTML +
         `<div class="col-2"> 
@@ -38,12 +43,12 @@ function showForecast(response) {
                     width="42"
                   />
       <div class="forecast-temp">
-        <span class="forecast-temp-min">${Math.round(
-          forecastDay.temp.min
-        )}°</span>
-        <span class="forecast-temp-max">${Math.round(
-          forecastDay.temp.max
-        )}°</span>
+        <span class="forecast-temp-min"> <span id="tempMin">${Math.round(
+          tempCMin
+        )}</span>°</span>
+        <span class="forecast-temp-max"><span id="tempMax">${Math.round(
+          tempCMax
+        )}</span>°</span>
         </div>            
       </div>`;
     }
@@ -54,25 +59,25 @@ function showForecast(response) {
 }
 
 function forecastCoordKyiv(coordinates) {
-  console.log(coordinates);
-  let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
+  //console.log(coordinates);
+  let apiKey = "eb9542c65e739e0fb25ade97c749e2aa";
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(showForecast);
-  console.log(apiUrl);
+  // console.log(apiUrl);
 }
 function forecastCoord(coordinates) {
-  console.log(coordinates);
-  let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
+  //console.log(coordinates);
+  let apiKey = "eb9542c65e739e0fb25ade97c749e2aa";
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(showForecast);
-  console.log(apiUrl);
+  //console.log(apiUrl);
 }
 function forecastCoordCurr(coordinates) {
-  console.log(coordinates);
-  let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
+  //console.log(coordinates);
+  let apiKey = "eb9542c65e739e0fb25ade97c749e2aa";
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(showForecast);
-  console.log(apiUrl);
+  //console.log(apiUrl);
 }
 
 //let currentDate = `${day}, ${now.getHours()}:${minutes}`;
@@ -91,7 +96,7 @@ function showTemp(response) {
   let humStart = response.data.main.humidity;
   let hum = document.querySelector("#humidity");
   let icon = document.querySelector("#icon");
-  console.log(response);
+  //console.log(response);
   let dateStart = document.querySelector("#date");
   tempC = response.data.main.temp;
   tempElement.innerHTML = Math.round(tempC);
@@ -230,6 +235,8 @@ function showFahrenTemp(event) {
   celLink.classList.remove("active");
   fahrenlink.classList.add("active");
   let tempF = (tempC * 9) / 5 + 32;
+  //let tempFMin = (tempCMin * 9) / 5 + 32;
+  //let tempFMax = (tempCMax * 9) / 5 + 32;
   temp.innerHTML = Math.round(tempF);
 }
 function showCelTemp(event) {
@@ -240,6 +247,7 @@ function showCelTemp(event) {
   temp.innerHTML = Math.round(tempC);
 }
 let tempC = null;
+
 let fahrenlink = document.querySelector("#fahren-link");
 fahrenlink.addEventListener("click", showFahrenTemp);
 
